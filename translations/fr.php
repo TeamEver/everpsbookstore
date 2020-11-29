@@ -28,6 +28,11 @@ $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_cfd202421047c036078dc195d
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_1f37bc8d74940cd9b27f8c0c1a5904a6'] = 'Sous blister';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_59c049dd5752a8eb8cc1c7db24fb464d'] = 'Payer en magasin';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_f4f70727dc34561dfde1a3c529b6205c'] = 'Réglages';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_c7ecd66cf4aabead2ffc476de479b192'] = 'Autoriser l\'upload automatique des images de livres s\'ils sont détectés via un ISBN ?';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_dacbd44a750e682a2cb7fcff5eebd806'] = 'Mettra automatiquement l\'image du livre sur le produit si celui-ci est trouvé depuis son ISBN';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_91c64961a52d04b6d8df6f9e7c1c538e'] = 'Attention aux droits d\'auteurs des éditeurs, un livre acquis d\'occasion n\'a aucune autorisation pour afficher la couverture ou un résumé, merci de vous renseigner des considérations légales';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_93cba07454f06a4a960172bbd6e2a435'] = 'Oui';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Non';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_0bf06252100468e96c3c44a04474e7b1'] = 'Comptes vendeurs';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_a57fcd935e9b19b219bf7bdba2d0340b'] = 'Ces comptes seront considérés comme vendeurs en magasin';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_3b38523a2d4022fde0492aa7c9d12c31'] = 'Merci de sélectionner au moins un compte vendeur';
@@ -49,6 +54,7 @@ $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_9abb149c95d75463bc3f2cf08
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_b1d883a04520a75468b6b8476c9eb8ed'] = 'Précisez l\'état de commande considéré comme livré';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_9054411a36d63b3e78eca1c73ef7510a'] = 'Le module n\'enverra aucun email';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_c9cc8cce247e49bae79f15173ce97354'] = 'Enregistrer';
+$_MODULE['<{everpsbookstore}prestashop>everpsbookstore_8ccb3e85749c8309a1a5a1b67c1a89a7'] = 'Erreur : le champ \"autoriser l\'import automatique des images de livres\" n\'est pas valide';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_e753fb5de37b0059a460871e129f2b94'] = 'Erreur : le champ \"transporteur\" n\'est pas valide';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_14c0a46ff1f60405fc361bcc7e646afd'] = 'Erreur : le champ \"comptes vendeurs\" n\'est pas valide';
 $_MODULE['<{everpsbookstore}prestashop>everpsbookstore_d5ac19908b9cc2515a6b42142ec83a90'] = 'Erreur : le champ \"état de commande considéré comme validé\" n\'est pas valide';

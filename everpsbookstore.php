@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.1.3';
+        $this->version = '2.1.4';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -319,6 +319,26 @@ class Everpsbookstore extends PaymentModule
                 ),
                 'input' => array(
                     array(
+                        'type' => 'switch',
+                        'label' => $this->l('Auto add book images if found ?'),
+                        'desc' => $this->l('Will auto upload book images if found based on ISBN'),
+                        'hint' => $this->l('Beware of editors properties !'),
+                        'name' => 'EVERPSBOOKSTORE_ALLOW_IMG',
+                        'is_bool' => true,
+                        'values' => array(
+                            array(
+                                'id' => 'active_on',
+                                'value' => true,
+                                'label' => $this->l('Yes')
+                            ),
+                            array(
+                                'id' => 'active_off',
+                                'value' => false,
+                                'label' => $this->l('No')
+                            )
+                        ),
+                    ),
+                    array(
                         'type' => 'select',
                         'class' => 'chosen',
                         'multiple' => true,
@@ -447,12 +467,18 @@ class Everpsbookstore extends PaymentModule
             'EVERPSBOOKSTORE_ID_CARRIER' => Configuration::get('EVERPSBOOKSTORE_ID_CARRIER'),
             'EVERPSBOOKSTORE_DATE_FEATURE' => Configuration::get('EVERPSBOOKSTORE_DATE_FEATURE'),
             'EVERPSBOOKSTORE_CONDITION_FEATURE' => Configuration::get('EVERPSBOOKSTORE_CONDITION_FEATURE'),
+            'EVERPSBOOKSTORE_ALLOW_IMG' => Configuration::get('EVERPSBOOKSTORE_ALLOW_IMG'),
         );
     }
 
     public function postValidation()
     {
         if (Tools::isSubmit('submitEverPsShopPaymentConf')) {
+            if (!Tools::getvalue('EVERPSBOOKSTORE_ALLOW_IMG')
+                || !Validate::isBool(Tools::getValue('EVERPSBOOKSTORE_ALLOW_IMG'))
+            ) {
+                $this->postErrors[] = $this->l('Error : The field "Allow auto upload book image" is not valid');
+            }
             if (!Tools::getvalue('EVERPSBOOKSTORE_ID_CARRIER')
                 || !Validate::isUnsignedInt(Tools::getValue('EVERPSBOOKSTORE_ID_CARRIER'))
             ) {
@@ -496,6 +522,10 @@ class Everpsbookstore extends PaymentModule
      */
     protected function postProcess()
     {
+        Configuration::updateValue(
+            'EVERPSBOOKSTORE_ALLOW_IMG',
+            Tools::getValue('EVERPSBOOKSTORE_ALLOW_IMG')
+        );
         Configuration::updateValue(
             'EVERPSBOOKSTORE_ID_CARRIER',
             Tools::getValue('EVERPSBOOKSTORE_ID_CARRIER')

@@ -216,7 +216,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                 }
             }
             if (count($categories) <= 0
-                || !Validate::isArrayWithIds($categories)
+                && !Validate::isArrayWithIds($categories)
             ) {
                 $this->postErrors[] = $this->l(
                     'Error : [categories] is not valid'
@@ -280,6 +280,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
             if ($book->save()) {
                 if (Tools::getValue('bookmedia_url')
                     && Validate::isUrl(Tools::getValue('bookmedia_url'))
+                    && (bool)Configuration::get('EVERPSBOOKSTORE_ALLOW_IMG') === true
                 ) {
                     // Cover
                     $cover_url = str_replace(
