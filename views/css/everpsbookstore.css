@@ -1,0 +1,42 @@
+.nodisplay{
+    display: none;
+}
+.required{
+    color:red;
+}
+.text-center{
+    text-align: center;
+}
+.bordered{
+    border: 1px solid #1e1e1e;
+}
+.border-gray{
+    border-color:#1e1e1e47;
+}
+.radius-20{
+    border-radius: 20%;
+}
+.ml-auto, .mx-auto {
+    margin-left: auto!important;
+}
+.mr-auto, .mx-auto {
+    margin-right: auto!important;
+}
+.tabs {
+    box-shadow: 2px 2px 8px 0 rgba(0,0,0,.2);
+    margin-top: 2rem;
+    background: #fff;
+    padding: 1.25rem 1.875rem;
+}
+.red{
+    color:red;
+}
+.bottom-bordered{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #23232359;
+}
+.book-cat label{
+    padding-left: 0;
+    text-align: left;
+    margin-bottom: 8px;
+}
