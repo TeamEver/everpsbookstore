@@ -717,7 +717,6 @@ class Everpsbookstore extends PaymentModule
         if (!Tools::getValue('id_product')) {
             return;
         }
-        $link = new Link();
         if ((bool)EverPsBookstoreSeller::isBookstoreSeller() === false) {
             return;
         }
@@ -895,9 +894,6 @@ class Everpsbookstore extends PaymentModule
      */
     public function addToCart($id_cart, $id_product, $qty, $id_shop)
     {
-        $cart = new Cart(
-            (int)$id_cart
-        );
         if ((int)$qty < 1) {
             $qty = 1;
         }

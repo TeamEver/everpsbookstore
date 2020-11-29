@@ -146,13 +146,13 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
 
     public function postProcess()
     {
+        $link = new Link();
         if ((bool)EverPsBookstoreSeller::isBookstoreSeller() === false) {
             Tools::redirect(
                 $link->getPageLink('my-account', true)
             );
         }
         if (Tools::isSubmit('evereditbooksubmit')) {
-            $link = new Link();
             if (!Tools::getValue('id_bookstore_seller')
                 || !Validate::isUnsignedInt(Tools::getValue('id_bookstore_seller'))
             ) {

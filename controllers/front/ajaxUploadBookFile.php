@@ -58,6 +58,7 @@ class EverpsbookstoreajaxUploadBookFileModuleFrontController extends ModuleFront
     {
         $this->ajax = true;
 
+        $link = new Link();
         parent::initContent();
         if ((bool)EverPsBookstoreSeller::isBookstoreSeller() === false) {
             Tools::redirect(
@@ -68,7 +69,6 @@ class EverpsbookstoreajaxUploadBookFileModuleFrontController extends ModuleFront
         $bookstore_seller = new EverPsBookstoreSeller(
             (int)Tools::getValue('id_bookstore_seller')
         );
-        $link = new Link();
         if (!Validate::isLoadedObject($bookstore_seller)
             || (int)$bookstore_seller->id <= 0
         ) {
@@ -83,6 +83,7 @@ class EverpsbookstoreajaxUploadBookFileModuleFrontController extends ModuleFront
      */
     public function displayAjax()
     {
+        $link = new Link();
         if ((bool)EverPsBookstoreSeller::isBookstoreSeller() === false) {
             Tools::redirect(
                 $link->getPageLink('my-account', true)

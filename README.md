@@ -1,7 +1,9 @@
-# README #
+# Ever PS Bookstore
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Help bookstores :-)
 
-### Todo ###
+https://www.team-ever.com/prestashop-module-pour-librairies/
 
-* Envoyer sur un email à renseigner à la main la facture au client
+## Prestashop 1.7 free bookstore module
+## Documentation (French only)
+Available at https://www.team-ever.com/prestashop-module-pour-librairies/

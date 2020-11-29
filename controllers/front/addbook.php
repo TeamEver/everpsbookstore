@@ -289,7 +289,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                     );
                     $cover = Tools::file_get_contents($cover_url);
                     $covername = $this->book_medias.uniqid().'-cover.jpg';
-                    $copied = file_put_contents($covername, $cover);
+                    file_put_contents($covername, $cover);
                     $this->addImageImport(
                         $covername,
                         $book->id
@@ -297,7 +297,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                     // Secondary media
                     $content = Tools::file_get_contents(Tools::getValue('bookmedia_url'));
                     $filename = $this->book_medias.uniqid().'.jpg';
-                    $copied = file_put_contents($filename, $content);
+                    file_put_contents($filename, $content);
                     $this->addImageImport(
                         $filename,
                         $book->id
