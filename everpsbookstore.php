@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.1.4';
+        $this->version = '2.1.5';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -560,6 +560,7 @@ class Everpsbookstore extends PaymentModule
         EverPsBookstoreSeller::cleanBookstoreSellers(
             (int)Context::getContext()->shop->id
         );
+        Tools::clearAllCache();
     }
 
     /**

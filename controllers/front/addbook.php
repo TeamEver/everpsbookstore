@@ -67,13 +67,6 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                 $link->getPageLink('authentication', true)
             );
         }
-
-        if ($cart->id_customer == 0
-            || !$this->module->active) {
-            Tools::redirect(
-                $link->getPageLink('my-account', true)
-            );
-        }
         if ((bool)EverPsBookstoreSeller::isBookstoreSeller() === false) {
             Tools::redirect(
                 $link->getPageLink('my-account', true)
@@ -136,7 +129,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                 );
             }
             $bookstore_seller = EverPsBookstoreSeller::getBookstoreSellerByCustomerId(
-                (int)Tools::getValue('id_bookstore_seller')
+                (int)Context::getContext()->customer->id
             );
             if (!Validate::isLoadedObject($bookstore_seller)
                 || (int)$bookstore_seller->id <= 0

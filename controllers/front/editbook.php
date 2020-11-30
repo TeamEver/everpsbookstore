@@ -162,7 +162,7 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
             }
             // Secure also on submit AND getting customer id
             $bookstore_seller = EverPsBookstoreSeller::getBookstoreSellerByCustomerId(
-                (int)Tools::getValue('id_bookstore_seller')
+                (int)Context::getContext()->customer->id
             );
             if (!Validate::isLoadedObject($bookstore_seller)
                 || (int)$bookstore_seller->id <= 0
