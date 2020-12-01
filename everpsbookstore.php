@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.1.5';
+        $this->version = '2.1.6';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;

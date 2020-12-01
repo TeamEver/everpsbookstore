@@ -109,6 +109,7 @@ $_MODULE['<{everpsbookstore}prestashop>editbook_2f7654fa7dbed910226e72e2289384fb
 $_MODULE['<{everpsbookstore}prestashop>editbook_b32d6829440ded0b8f4e08608bbb0f76'] = 'Quantité en stock';
 $_MODULE['<{everpsbookstore}prestashop>editbook_22836ed2644f9fa7d41e106817c9b380'] = 'Prix de vente TTC du livre';
 $_MODULE['<{everpsbookstore}prestashop>editbook_a4d3b161ce1309df1c4e25df28694b7b'] = 'Enregistrer';
+$_MODULE['<{everpsbookstore}prestashop>payment_infos_8a6c67a0ba74a520d36ba8ac0a61f7d6'] = 'Payer en magasin - vendeurs uniquement';
 $_MODULE['<{everpsbookstore}prestashop>columns_1c831e744aa34158de5a73b6ec9a8352'] = 'Ajouter un nouveau livre';
 $_MODULE['<{everpsbookstore}prestashop>edit_button_ebc4f6c80a2cc8609ac04075988459c5'] = 'Editer le livre';
 $_MODULE['<{everpsbookstore}prestashop>edit_button_59c049dd5752a8eb8cc1c7db24fb464d'] = 'Valider la commande en magasin';
