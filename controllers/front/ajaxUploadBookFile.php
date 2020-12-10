@@ -39,6 +39,7 @@ class EverpsbookstoreajaxUploadBookFileModuleFrontController extends ModuleFront
         $this->weight_unit = Configuration::get('PS_WEIGHT_UNIT');
         $this->date_feature_id = Configuration::get('EVERPSBOOKSTORE_DATE_FEATURE');
         $this->condition_feature_id = Configuration::get('EVERPSBOOKSTORE_CONDITION_FEATURE');
+        $this->editor_feature_id = Configuration::get('EVERPSBOOKSTORE_EDITOR_FEATURE');
         $this->book_medias = _PS_ROOT_DIR_._MODULE_DIR_.'everpsbookstore/views/uploads/';
         $link = new Link();
         $this->shopLink = $link->getBaseLink((int)Context::getContext()->shop->id);

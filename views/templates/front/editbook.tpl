@@ -54,6 +54,14 @@
             <div class="form-group col-md-12">
                 <label for="name">{l s='Book name' mod='everpsbookstore'} <span class="everrequired">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" value="{$product->name|escape:'htmlall':'UTF-8'}" required>
+            </div>            
+            <div class="form-group col-md-12">
+                <label for="book_editor">{l s='Book editor' mod='everpsbookstore'}</label>
+                <select class="form-control" id="book_editor" name="book_editor">
+                {foreach from=$editors item=editor}
+                    <option value="{$editor.value|escape:'htmlall':'UTF-8'}" {if $product->book_editor == $editor.value}selected{/if}>{$editor.value|escape:'htmlall':'UTF-8'}</option>
+                {/foreach}
+                </select>
             </div>
             <div class="form-group col-md-12 book-cat">
                 <p>{l s='Book category' mod='everpsbookstore'}</p>
@@ -65,8 +73,7 @@
                     </div>
                 {/if}
                 {/foreach}
-            </div>
-            
+            </div>            
             <div class="form-group col-md-12">
                 <label for="book_condition">{l s='Book condition' mod='everpsbookstore'}</label>
                 <select class="form-control" id="book_condition" name="book_condition">

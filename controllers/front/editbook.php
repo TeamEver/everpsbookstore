@@ -39,6 +39,7 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
         $this->weight_unit = Configuration::get('PS_WEIGHT_UNIT');
         $this->date_feature_id = Configuration::get('EVERPSBOOKSTORE_DATE_FEATURE');
         $this->condition_feature_id = Configuration::get('EVERPSBOOKSTORE_CONDITION_FEATURE');
+        $this->editor_feature_id = Configuration::get('EVERPSBOOKSTORE_EDITOR_FEATURE');
         $this->book_medias = _PS_ROOT_DIR_._MODULE_DIR_.'everpsbookstore/views/uploads/';
         $link = new Link();
         $this->shopLink = $link->getBaseLink((int)Context::getContext()->shop->id);
@@ -116,9 +117,12 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
             (int)$this->date_feature_id,
             (int)$product->id
         );
-        // die(var_dump($product->book_date));
         $product->book_condition = EverPsBookstoreTools::getProductFeatureValue(
             (int)$this->condition_feature_id,
+            (int)$product->id
+        );
+        $product->book_editor = EverPsBookstoreTools::getProductFeatureValue(
+            (int)$this->editor_feature_id,
             (int)$product->id
         );
         $conditions = FeatureValue::getFeatureValuesWithLang(
@@ -220,6 +224,13 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
                     'Error : [Book condition] is not valid'
                 );
             }
+            if (Tools::getValue('book_editor')
+                && !Validate::isGenericName(Tools::getValue('book_editor'))
+            ) {
+                $this->postErrors[] = $this->l(
+                    'Error : [Book editor] is not valid'
+                );
+            }
             if (Tools::getValue('author')
                 && !Validate::isGenericName(Tools::getValue('author'))
             ) {
@@ -289,6 +300,13 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
                     (int)Context::getContext()->shop->id
                 );
             }
+            if (Tools::getValue('book_editor')) {
+                $editor_feature_value = EverPsBookstoreTools::getFeatureValueByValue(
+                    (int)$this->editor_feature_id,
+                    Tools::getValue('book_editor'),
+                    (int)Context::getContext()->shop->id
+                );
+            }
             foreach (Language::getLanguages(false) as $lang) {
                 $book->name[(int)$lang['id_lang']] = Tools::getValue('name');
                 $truncated_short_desc = Tools::substr(
@@ -326,6 +344,19 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
                         (int)$this->date_feature_id,
                         (int)$book->id,
                         (int)$date_feature_value->id
+                    );
+                }
+                if (Tools::getValue('book_editor')) {
+                    // Remove default date feature values
+                    EverPsBookstoreTools::removeProductFeatures(
+                        (int)$this->editor_feature_id,
+                        (int)$book->id
+                    );
+                    // Update date feature value
+                    EverPsBookstoreTools::replaceProductFeatures(
+                        (int)$this->editor_feature_id,
+                        (int)$book->id,
+                        (int)$editor_feature_value->id
                     );
                 }
                 if (Tools::getValue('book_condition')) {

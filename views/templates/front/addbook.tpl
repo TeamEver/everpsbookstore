@@ -56,6 +56,14 @@
                 <input type="number" class="form-control" id="book_date" name="book_date" aria-describedby="authorHelp" placeholder="{l s='Enter book edition year date' mod='everpsbookstore'}" required>
             </div>
             <div class="form-group col-md-12">
+                <label for="book_editor">{l s='Book editor' mod='everpsbookstore'}</label>
+                <select class="form-control" id="book_editor" name="book_editor">
+                {foreach from=$editors item=editor}
+                    <option value="{$editor.value|escape:'htmlall':'UTF-8'}">{$editor.value|escape:'htmlall':'UTF-8'}</option>
+                {/foreach}
+                </select>
+            </div>
+            <div class="form-group col-md-12">
                 <p>{l s='Book category' mod='everpsbookstore'}</p>
                 {foreach from=$categories item=category}
                 {if $category.id_category != 1}

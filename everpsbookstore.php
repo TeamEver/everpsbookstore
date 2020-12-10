@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.1.6';
+        $this->version = '2.2.1';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -132,7 +132,8 @@ class Everpsbookstore extends PaymentModule
     {
         $features = array(
             'date' => $this->l('Date'),
-            'condition' => $this->l('Condition')
+            'condition' => $this->l('Condition'),
+            'editor' => $this->l('Editeurs')
         );
         $featureDates = array(
             $this->l('Not set'),
@@ -150,6 +151,14 @@ class Everpsbookstore extends PaymentModule
             $this->l('Missing pages'),
             $this->l('Almost new'),
             $this->l('In blister')
+        );
+        $featureEditors = array(
+            $this->l('Humanoïdes associés'),
+            $this->l('Dargaud'),
+            $this->l('Delcourt'),
+            $this->l('Dupuis'),
+            $this->l('Flammarion'),
+            $this->l('Glénat')
         );
         foreach ($features as $type => $feat) {
             $feature = new Feature();
@@ -173,6 +182,17 @@ class Everpsbookstore extends PaymentModule
 
                     case 'condition':
                         foreach ($featureConditions as $value) {
+                            $featureValue = new FeatureValue();
+                            $featureValue->id_feature = $feature->id;
+                            foreach (Language::getLanguages(false) as $lang) {
+                                $featureValue->value[(int)$lang['id_lang']] = $value;
+                            }
+                            $featureValue->save();
+                        }
+                        break;
+
+                    case 'editor':
+                        foreach ($featureEditors as $value) {
                             $featureValue = new FeatureValue();
                             $featureValue->id_feature = $feature->id;
                             foreach (Language::getLanguages(false) as $lang) {
@@ -371,6 +391,19 @@ class Everpsbookstore extends PaymentModule
                     array(
                         'type' => 'select',
                         'required' => true,
+                        'label' => $this->l('Editor feature'),
+                        'name' => 'EVERPSBOOKSTORE_EDITOR_FEATURE',
+                        'desc' => $this->l('Specify the editior name'),
+                        'hint' => $this->l('Will be used for searching filters'),
+                        'options' => array(
+                            'query' => $features,
+                            'id' => 'id_feature',
+                            'name' => 'name'
+                        ),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'required' => true,
                         'label' => $this->l('Condition feature'),
                         'name' => 'EVERPSBOOKSTORE_CONDITION_FEATURE',
                         'desc' => $this->l('Specify the condition feature (for searching new, refurbished...)'),
@@ -467,6 +500,7 @@ class Everpsbookstore extends PaymentModule
             'EVERPSBOOKSTORE_ID_CARRIER' => Configuration::get('EVERPSBOOKSTORE_ID_CARRIER'),
             'EVERPSBOOKSTORE_DATE_FEATURE' => Configuration::get('EVERPSBOOKSTORE_DATE_FEATURE'),
             'EVERPSBOOKSTORE_CONDITION_FEATURE' => Configuration::get('EVERPSBOOKSTORE_CONDITION_FEATURE'),
+            'EVERPSBOOKSTORE_EDITOR_FEATURE' => Configuration::get('EVERPSBOOKSTORE_EDITOR_FEATURE'),
             'EVERPSBOOKSTORE_ALLOW_IMG' => Configuration::get('EVERPSBOOKSTORE_ALLOW_IMG'),
         );
     }
@@ -514,6 +548,11 @@ class Everpsbookstore extends PaymentModule
             ) {
                 $this->postErrors[] = $this->l('Error : The field "Condition feature" is not valid');
             }
+            if (!Tools::getValue('EVERPSBOOKSTORE_EDITOR_FEATURE')
+                || !Validate::isUnsignedInt(Tools::getValue('EVERPSBOOKSTORE_EDITOR_FEATURE'))
+            ) {
+                $this->postErrors[] = $this->l('Error : The field "Editor feature" is not valid');
+            }
         }
     }
 
@@ -556,6 +595,10 @@ class Everpsbookstore extends PaymentModule
         Configuration::updateValue(
             'EVERPSBOOKSTORE_CONDITION_FEATURE',
             Tools::getValue('EVERPSBOOKSTORE_CONDITION_FEATURE')
+        );
+        Configuration::updateValue(
+            'EVERPSBOOKSTORE_EDITOR_FEATURE',
+            Tools::getValue('EVERPSBOOKSTORE_EDITOR_FEATURE')
         );
         EverPsBookstoreSeller::cleanBookstoreSellers(
             (int)Context::getContext()->shop->id
@@ -897,10 +940,17 @@ class Everpsbookstore extends PaymentModule
                 );
             }
         } else {
-            EverPsBookstoreTools::autoDisableRedirectBook(
+            $stock = (int)StockAvailable::getStockAvailableIdByProductId(
                 (int)$product->id,
+                null,
                 (int)Context::getContext()->shop->id
             );
+            if ((int)$stock <= 0) {
+                EverPsBookstoreTools::autoDisableRedirectBook(
+                    (int)$product->id,
+                    (int)Context::getContext()->shop->id
+                );
+            }
         }
     }
 

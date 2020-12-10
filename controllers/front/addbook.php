@@ -39,6 +39,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
         $this->weight_unit = Configuration::get('PS_WEIGHT_UNIT');
         $this->date_feature_id = Configuration::get('EVERPSBOOKSTORE_DATE_FEATURE');
         $this->condition_feature_id = Configuration::get('EVERPSBOOKSTORE_CONDITION_FEATURE');
+        $this->editor_feature_id = Configuration::get('EVERPSBOOKSTORE_EDITOR_FEATURE');
         $this->book_medias = _PS_ROOT_DIR_.'/modules/everpsbookstore/views/uploads/';
         $link = new Link();
         $this->shopLink = $link->getBaseLink((int)Context::getContext()->shop->id);
@@ -94,6 +95,10 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
             (int)Context::getContext()->language->id,
             (int)$this->condition_feature_id
         );
+        $editors = FeatureValue::getFeatureValuesWithLang(
+            (int)Context::getContext()->language->id,
+            (int)$this->editor_feature_id
+        );
         $loadinggif = _PS_BASE_URL_
         ._MODULE_DIR_
         .'everpsbookstore/views/img/ajax-loader.gif';
@@ -103,6 +108,7 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
             'loadinggif' => $loadinggif,
             'categories' => $categories,
             'conditions' => $conditions,
+            'editors' => $editors,
             'bookstore_seller' => $bookstore_seller,
             'manufacturers' => $manufacturers,
             'weight_unit' => $this->weight_unit,
@@ -259,6 +265,13 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                     (int)Context::getContext()->shop->id
                 );
             }
+            if (Tools::getValue('book_editor')) {
+                $editor_feature_value = EverPsBookstoreTools::getFeatureValueByValue(
+                    (int)$this->editor_feature_id,
+                    Tools::getValue('book_editor'),
+                    (int)Context::getContext()->shop->id
+                );
+            }
             $author_id = Manufacturer::getIdByName(
                 Tools::getValue('author')
             );
@@ -311,6 +324,14 @@ class EverpsbookstoreAddbookModuleFrontController extends ModuleFrontController
                         (int)$this->condition_feature_id,
                         (int)$book->id,
                         (int)$condition_feature_value->id
+                    );
+                }
+                // Update date feature value
+                if (Tools::getValue('book_editor')) {
+                    EverPsBookstoreTools::replaceProductFeatures(
+                        (int)$this->editor_feature_id,
+                        (int)$book->id,
+                        (int)$editor_feature_value->id
                     );
                 }
                 // Update date feature value
