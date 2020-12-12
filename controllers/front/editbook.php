@@ -108,7 +108,7 @@ class EverpsbookstoreEditbookModuleFrontController extends ModuleFrontController
             (int)$product->id_manufacturer
         );
         $product->author = $author->name;
-        $product->quantity = StockAvailable::getStockAvailableIdByProductId(
+        $product->quantity = StockAvailable::getQuantityAvailableByProduct(
             (int)$product->id
         );
         $product->categories = $product->getCategories();

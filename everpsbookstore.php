@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.2.1';
+        $this->version = '2.2.2';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -927,7 +927,7 @@ class Everpsbookstore extends PaymentModule
             );
             $stock = 0;
             foreach ($attr_resumes as $attr_resume) {
-                $stock += (int)StockAvailable::getStockAvailableIdByProductId(
+                $stock += (int)StockAvailable::getQuantityAvailableByProduct(
                     (int)$attr_resume['id_product'],
                     (int)$attr_resume['id_product_attribute'],
                     (int)Context::getContext()->shop->id
@@ -940,7 +940,7 @@ class Everpsbookstore extends PaymentModule
                 );
             }
         } else {
-            $stock = (int)StockAvailable::getStockAvailableIdByProductId(
+            $stock = (int)StockAvailable::getQuantityAvailableByProduct(
                 (int)$product->id,
                 null,
                 (int)Context::getContext()->shop->id
