@@ -34,7 +34,7 @@ class Everpsbookstore extends PaymentModule
     {
         $this->name = 'everpsbookstore';
         $this->tab = 'others';
-        $this->version = '2.2.2';
+        $this->version = '2.2.3';
         $this->author = 'Team Ever';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -524,7 +524,7 @@ class Everpsbookstore extends PaymentModule
                 $this->postErrors[] = $this->l('Error : The field "Super customers" is not valid');
             }
             if (!Tools::getValue('EVERPSBOOKSTORE_VALIDATED_STATE_ID')
-                || !Validate::isArrayWithIds(Tools::getValue('EVERPSBOOKSTORE_VALIDATED_STATE_ID'))
+                || !Validate::isUnsignedInt(Tools::getValue('EVERPSBOOKSTORE_VALIDATED_STATE_ID'))
             ) {
                 $this->postErrors[] = $this->l('Error : The field "Validated states" is not valid');
             }
